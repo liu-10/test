@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<!-- 移动端必有的 -->
+	<meta name="viewport" content="width=device-width,user-scalable=no,
+	initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="../static/css/user-center-order.css">
+	<title>个人中心</title>
+</head>
+<body>
+        <div class="header">
+      		<div class="wel">快易点欢迎您!!</div>
+      		<div class="header-info">
+      			{% if user.is_authenticated %}
+      			<div class="header-user">
+						欢迎您，<em class="fix-em">{{ user.username }}</em>
+						<a href="/user/logout" class="quit">退出</a>
+					</div>
+                {% else %}
+                    <div class="header-user">
+                        <a href="/user/login" class="go-login">欢迎您，请登录</a>
+                        <a href="/user/register" class="go-register">免费注册</a>
+                    </div>
+                {% endif %}
+      			<div class="user-info">
+      				<a href="/user/user-center-info"><span>个人中心</span></a>
+      				<a href="javascript:;"><span>我的订单</span></a>
+      				<a href="/"><span>首页</span></a>
+      			</div>
+      		</div>
+        </div>
+
+        <div class="user-header">
+         	 <div class="user-logo">个人中心</div>
+		</div>
+
+		<div class="center-info">
+			<div class="info-list">
+				<ul>
+					<li class="li-cl"><a href="./user-center-info" class="clearfix">个人中心</a> </li>
+					<li class="li-cl"><a href="./user-info-site" class="clearfix">收货地址</a></li>
+					<li class="li-cl"><a href="javascript:;" class="cur clearfix">我的订单</a> </li>
+				</ul>
+			</div>
+
+			<div class="info-content">
+				<li class="order-list li-cl">
+					<div class="order-header">
+						<div class="number fl">15645626456456</div>
+						<div class="order-time fl">2020-6-17</div>
+						<div class="order-st-h fl red">未完成</div>
+					</div>
+					<div class="order-info fl">
+						<ul class="order-gd fl">
+							    <li class="order-ls li-cl">
+									<div class="gd-img fl"></div>
+									<div class="gd-name fl">草莓</div>
+									<div class="gd-unit fl">12元/斤</div>
+									<div class="gd-num fl">2</div>
+								</li>
+								<li class="order-ls li-cl">
+									<div  class="gd-img fl"></div>
+									<div class="gd-name fl">苹果</div>
+									<div class="gd-unit fl">12元/斤</div>
+									<div  class="gd-num fl">2</div>
+								</li>
+						</ul>				
+					
+						<div class="finish_st fl red">未完成</div>
+						<div class="order-act fl"><button class="but">去付款</button></div>
+					</div>
+				</li>
+				<li class="order-list li-cl">
+					<div class="order-header">
+						<div class="number fl">15645626456456</div>
+						<div class="order-time fl">2020-6-17</div>
+						<div class="order-st-h fl gl">已完成</div>
+					</div>
+					<div class="order-info fl">
+						<ul class="order-gd fl">
+							    <li class="order-ls li-cl">
+									<div class="gd-img fl"></div>
+									<div class="gd-name fl">草莓</div>
+									<div class="gd-unit fl">12元/斤</div>
+									<div class="gd-num fl">2</div>
+								</li>
+								<li class="order-ls li-cl">
+									<div  class="gd-img fl"></div>
+									<div class="gd-name fl">苹果</div>
+									<div class="gd-unit fl">12元/斤</div>
+									<div  class="gd-num fl">2</div>
+								</li>
+						</ul>				
+					
+						<div class="finish_st fl gl">已完成</div>
+						<div class="order-act fl"><a href="#">查看物流</a></div>
+					</div>
+				</li>
+				<li class="order-list li-cl">
+					<div class="order-header">
+						<div class="number fl">15645626456456</div>
+						<div class="order-time fl">2020-6-17</div>
+						<div class="order-st-h fl gl">已完成</div>
+					</div>
+					<div class="order-info fl">
+						<ul class="order-gd fl">
+							    <li class="order-ls li-cl">
+									<div class="gd-img fl"></div>
+									<div class="gd-name fl">草莓</div>
+									<div class="gd-unit fl">12元/斤</div>
+									<div class="gd-num fl">2</div>
+								</li>
+								<li class="order-ls li-cl">
+									<div  class="gd-img fl"></div>
+									<div class="gd-name fl">苹果</div>
+									<div class="gd-unit fl">12元/斤</div>
+									<div  class="gd-num fl">2</div>
+								</li>
+						</ul>				
+					
+						<div class="finish_st fl gl">已完成</div>
+						<div class="order-act fl"><a href="#">查看物流</a></div>
+					</div>
+				</li>
+
+				<ul class="page-list">
+					<li class="li-cl fl li-rh"><a href="prev"><上一页</a> </li>
+					<li class="li-cl fl gl li-rh">1</li>
+					<li class="li-cl fl li-rh">2</li>
+					<li class="li-cl fl li-rh">3</li>
+					<li class="li-cl fl li-rh">4</li>
+					<li class="li-cl fl li-rh"><a href="next">下一页></a> </li>
+				</ul>
+			</div>
+		</div>
+</body>
+</html>

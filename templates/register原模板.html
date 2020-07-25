@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<!-- 移动端必有的 -->
+	<meta name="viewport" content="width=device-width,user-scalable=no,
+	initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="../static/css/register.css">
+	<title>注册</title>
+	<script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript">
+			$(function(){
+
+					var reg1 = /^\w{6,20}$/;
+					var reg2 =/^[\w!@#$%^&*]{6,20}/;
+					var reg3 =/^[\w!@#$%^&*]{6,20}/;
+					var reg4 =/^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$/i;
+
+
+					//判断用户名
+					$('.re-us').blur(function(){
+						var us = $('.re-us').val();
+						// alert(us);
+						
+						if(reg1.test(us)){
+							$('.us-error').hide();
+							$('.us-error1').hide();
+						}
+						else{
+							$('.us-error1').show();
+						}
+						if(us == ''){
+							$('.us-error').show();
+							$('.us-error1').hide();
+						}
+					})
+
+					$('.re-us').focus(function(){
+						$('.us-error').hide();
+					})
+
+
+					//判断密码
+					$('.re-pa').blur(function(){
+						var pa = $('.re-pa').val();
+						// alert(pa);
+						
+						if(reg2.test(pa)){
+							$('.pa-error').hide();
+							$('.pa-error1').hide();
+						}
+						else{
+							$('.pa-error1').show();
+						}
+						if(pa == ''){
+							$('.pa-error').show();
+							$('.pa-error1').hide();
+						}
+					})
+
+					$('.re-pa').focus(function(){
+						$('.pa-error').hide();
+					})
+
+					//确认密码
+					$('.check-pa').blur(function(){
+						var pa2 = $('.check-pa').val();
+						var pa = $('.re-pa').val();
+						// alert(us);
+						if(pa == pa2){
+							//两次密码不一致
+							$('.pac-error1').show();
+							$('.pac-error2').hide();
+							$('.pac-error').hide();
+						}
+						
+						if(reg3.test(pa2)){
+							$('.pac-error').hide();
+							$('.pac-error1').hide();
+							$('.pac-error2').hide();
+						}
+						else{
+							$('.pac-error1').show();
+						}
+						if(pa2 == ''){
+							$('.pac-error').show();
+							$('.pac-error1').hide();
+						}
+					})
+
+					$('.check-pa').focus(function(){
+						$('.pac-error').hide();
+						$('.pac-error1').hide();
+						$('.pac-error2').hide();
+					})
+
+					//判断邮箱
+					$('.re-em').blur(function(){
+						var eam = $('.re-em').val();
+						// alert(us);
+						
+						if(reg4.test(eam)){
+							$('.em-error').hide();
+							$('.em-error1').hide();
+						}
+						else{
+							$('.em-error1').show();
+						}
+						if(eam == ''){
+							$('.em-error').show();
+							$('.em-error1').hide();
+						}
+					})
+
+					$('.re-em').focus(function(){
+						$('.em-error').hide();
+						$('.em-error1').hide();
+					})
+
+
+					$('.comit').click(function(){
+
+						var che = $('.comit').prop('checked');
+						if(che != true){
+							$('.che-error').show();
+						}
+						else{
+							$('.che-error').hide();
+						}
+
+				})
+			})
+
+	</script>
+</head>
+<body>		
+		  <div class="wel">欢迎您，亲爱的用户，您以优秀的眼光发现了我们，感谢您的到来！！</div>
+          <div class="re-content">
+          	<div class="re-title">用户注册</div>
+          	<hr class="re-h">
+          		<form class="re-form" method="post">
+					{% csrf_token %}
+          			<label>用&nbsp;户&nbsp;名:</label>
+          			<input type="text" name="username" class="re-us">
+          			<div class="us-error"  style="display: none;">*用户名不能为空</div>
+          			<div class="us-error1"  style="display: none;">*用户名为5-8位的数字字母下划线</div>
+
+          			<label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
+		  			<input type="password" name="password" class="re-pa"> 
+		  			<div class="pa-error" style="display: none;">*密码不能为空</div>
+		  			<div class="pa-error1"  style="display: none;">*密码为8-12位</div>
+		  			<!-- <div class="pa-error1"  style="display: none;">*两次密码不一致</div> -->
+
+          			<label>确认密码:</label>
+          			<input type="password" name="password2" class="check-pa">
+          			<div class="pac-error" style="display: none;">*确认密码不能为空</div>
+          			<div class="pac-error2"  style="display: none;">*密码为8-12位</div>
+          			<div class="pac-error1" style="display: none;">*两次密码不一致</div>
+
+          			<label>邮&nbsp;&nbsp;&nbsp;箱:</label>
+          			<input type="text" name="email" class="re-em">
+          			<div class="em-error" style="display: none;">*邮箱不能为空</div>
+          			<div class="em-error1"  style="display: none;">*邮箱错误</div>
+
+          			<input type="checkbox" name="agree" class="comit" checked> 同意该协议
+          			<a href="/user/login" class="re-login">去登录>></a>
+					<div class="che-error" style="display: none;">*请勾选同意本协议</div>
+
+          			<input type="submit" name="submit" class="sub" value="提交">
+          			 {{ content }}
+          		</form>
+          </div>
+          <hr class="h">
+		  <div class="copyright">
+		  		<span>xxxx</span>
+		  		<span>|</span>
+		  		<span>xxxx</span>
+		  		<span>|</span>
+		  		<span>xxxx</span>
+		  		<span>|</span>
+		  		<span>xxxx</span>
+		  		<br>
+		  		<span>xxxx asdhi 1564654 45645 56 5645 56 </span>
+		  </div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<!-- 移动端必有的 -->
+	<meta name="viewport" content="width=device-width,user-scalable=no,
+	initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="../static/css/order-detail.css">
+	<title>首页</title>
+	<script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+
+			
+
+			$('.prev-order').click(function(){
+
+					var num = $('.cart-num').html();
+					// alert(parseInt(num));
+					$('.cart-box').show();
+					$('.cart-box').css({'left':700,'top':537});
+					$('.cart-box').stop().animate({'left':1150,'top':114});
+					$('.cart-box').fadeOut();
+					num++;
+					$('.cart-num').html(num);
+			})
+
+		})
+	</script>
+</head>
+<body>
+          <div class="header">
+          		<div class="wel">快易点欢迎您!!</div>
+          		<div class="header-info">
+          			<div class="header-user" style="display: none;"><em>欢迎您，张三</em></div>
+          			<div class="header-user">
+          				<a href="#" class="go-login">欢迎您，请登录</a>
+          				<a href="#" class="go-register">免费注册</a>
+          			</div>
+          			<div class="user-info">
+          				<a href="#"><span>个人中心</span></a>    
+          				<a href="#"><span>我的购物车</span></a> 
+          				<a href="#"><span>我的xxxx</span></a> 
+          			</div>
+          		</div>
+          </div>
+
+          <div class="content-header">
+          		<div class="logo"><a href="#">LOGO</a></div>
+          		<div class="search-text">
+          			<input type="text" name="" placeholder="搜索关键字" class="se-text">
+          			<div class="se-btn">搜索</div>
+          		</div>
+          		<div class="cart-logo">
+          			<div class="cart-name"><a href="#">我的购物车</a></div>
+          			<div class="cart-img"></div>
+          			<div class="cart-num">0</div>
+          		</div>
+          </div>
+
+         <div class="content-body">
+         		<div class="detail-img"></div>
+         		<div class="detail-info">
+         			  <div class="detail-name ml">廊桥大酒店</div>
+         			  <div class="detail-price ml">￥150</div>
+         			  <div class="detail-addr ml">地址：福建省福州市xxxxxxxxxxxxxxxxxx</div>
+         			  <div class="detail-desc ml">舒服，干净，卫生，家一样的体验</div>
+         			  <div class="prev-order ml"><a href="#" class="clear-a">立即预定</a></div>
+         		</div>
+         		<div class="new">
+         			<div class="new-header">其他推荐</div>
+         			<li class="clearlist">
+         				<div class="new-img"></div>
+         				<div class="new-name">xxxx</div>
+         			</li>
+         			<li class="clearlist">
+         				<div class="new-img"></div>
+         				<div class="new-name">xxxx</div>
+         			</li>
+         		</div>
+
+         		<div class="detail-comment">
+         			<div class="comment-header">评论</div>
+         			<ul class="comment-content">
+         				<li class="clearlist">
+         					<div class="avator-info">
+		         				<div class="avator-headimg"></div>
+		         				<div class="avator-name">记忆中的你</div>
+		         			</div>	
+	         				<div class="avator-content">你值得拥有，是个很好的推荐，不容错过</div>
+	         			</li>
+	         			<li class="clearlist">
+	         				<div class="avator-info">
+		         				<div class="avator-headimg"></div>
+		         				<div class="avator-name">记忆中的你</div>
+		         			</div>	
+	         				<div class="avator-content">你值得拥有，是个很好的推荐，不容错过</div>
+	         			</li>
+         			</ul>
+         			<div class="comment-page">
+         				<ul>
+         					<li class="clearlist fl"><a href="#"><上一页</a> </li>
+         					<li class="clearlist fl">1</li>
+         					<li class="clearlist fl">2</li>
+         					<li class="clearlist fl">3</li>
+         					<li class="clearlist fl"><a href="#">下一页></a> </li>
+         				</ul>
+         			</div>
+         		</div>
+         </div>
+
+          <hr class="h">
+		  <div class="copyright">
+		  		<span>xxxx</span>
+		  		<span>|</span>
+		  		<span>xxxx</span>
+		  		<span>|</span>
+		  		<span>xxxx</span>
+		  		<span>|</span>
+		  		<span>xxxx</span>
+		  		<br>
+		  		<span>xxxx asdhi 1564654 45645 56 5645 56 </span>
+		  </div>
+
+		  <div class="cart-box"></div>
+</body>
+</html>

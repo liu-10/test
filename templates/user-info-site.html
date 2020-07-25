@@ -1,0 +1,107 @@
+{% extends 'center.html ' %}
+{% load static %}
+
+	{% block link %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/user-info-site.css'%} ">
+		<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%}"></script>
+	{% endblock link %}
+
+	{% block content-body %}
+		<div class="center-info">
+			<div class="info-list">
+				<ul>
+					<li><a href="user-center-info" class="clearfix">个人中心</a> </li>
+					<li><a href="javascript:;" class="cur clearfix">收货地址</a></li>
+					<li><a href="./user-center-order/1" class="clearfix">我的订单</a> </li>
+				</ul>
+			</div>
+
+			<div class="info-content">
+				<div class="site-header">收货地址</div>
+                {% if address %}
+                    <div class="site-msg">
+                        <div class=""><em class="fix-em">用户名</em>：<span>{{ user.username }}</span></div>
+                        <div class=""><em class="fix-em">详细地址</em>：<span>{{ address.address }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ch">编辑</span></div>
+                        <div class=""><em class="fix-em">联系电话</em>：<span>{{ address.phone }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ch">编辑</span></div>
+                    </div>
+                    {% csrf_token %}
+                    <div class="box1" style="display: none;"><input type="text" name="" class="ch-info">&nbsp;&nbsp;&nbsp;<input type="button" value="修改" class="ch-sub" username='{{ user.username }}'></div>
+					<div class="box2" style="display: none;"><input type="text" name="" class="ch-info">&nbsp;&nbsp;&nbsp;<input type="button" value="修改" class="ch-sub" username='{{ user.username }}'></div>
+                {% else %}
+                    <div class="site-msg">
+                        <div class="">用户名：{{ user.username }}</div>
+                        <div class="">详细地址：(暂无默认地址，请在下方添加地址)</div>
+                    </div>
+                {% endif %}
+
+				<div class="add-site-header">添加地址</div>	
+				   <form method="post">
+					   {% csrf_token %}
+						<div class="receiver">
+							收货人:
+							<input type="text" name="receiver">
+						</div>
+						<div class="phone">
+							联系电话:
+							<input type="text" name="phone">
+						</div>
+						<div class="addr">
+							<div class="fl">详细收货地址:</div> 
+							<textarea class="fl addr-te" name="address"></textarea>
+							<div class="fl def_addr"><input type="checkbox" name="is_default" class="add-def">是否设置为默认地址</div>
+						</div>
+						<input type="submit" name="submit" class="sub">
+					   	<br>
+					   {{ content }}
+				   </form>	
+			</div>
+			
+			
+		</div>
+	{% endblock content-body %}
+	{% block bottomfile %}
+		<script type="text/javascript">
+			$(function(){
+				$('.ch').click(function(){
+
+						// alert($(this).siblings('em').text());
+					var lab = $(this).siblings('em').text();
+					if(lab == '详细地址'){
+						$('.box1').show();
+						$('.box2').hide();
+					}
+					else{
+						$('.box2').show();
+						$('.box1').hide();
+					}
+
+				})
+
+				$('.ch-sub').click(function(){
+					var ch_text = $(this).siblings().val();
+					// alert($(this).parent().className());
+					var username = $(this).attr('username');
+					var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+					// alert(ch_text);
+					if(ch_text != ''){
+						parems = {'username': username, 'ch_text': ch_text, 'csrfmiddlewaretoken': csrf}
+						$.post('/user/change', parems, function(data){
+
+							if(data.res == '5'){
+								alert(data.msg)
+								location.reload();
+							}
+							else{
+								alert(data.ermsg);
+							}
+						})
+
+					}
+					else{
+						alert('请输入内容后再提交')
+					}
+				})
+				
+			})
+		</script>
+	{% endblock bottomfile %}

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+	{% block link %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/search.css'%} ">
+		<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%}"></script>
+		<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+	{% endblock link %}
+
+	{% block title %}
+	<title>商品列表</title>
+	{% endblock title %}
+
+	
+		{% block body-content %}
+         
+
+        <div class="container">
+			<div class="row">
+					<ol class="breadcrumb">
+						<li><a href="/goods/index">{{ query }}</a></li>
+						<li class="active">搜索结果如下:</li>
+					</ol>
+			</div>
+		</div>	
+
+		<div class="search-content">
+			<ul>
+				{% csrf_token %}
+				{% for item in page %}
+					<li class="search-li">
+						<div class="search-name">{{ item.object.name }}</div>
+						<div class="search-img"></div>
+						<div class="search-price">{{ item.object.price }}{{ item.object.unit }}</div>
+						<div class="add" sku_id='{{ item.object.id }}'></div>
+					</li>
+				{% endfor %}
+			</ul>
+
+			<ul class="page">
+				{% if page.has_previous %}
+					<li><a href="/search?q={{ query }}&page={{ page.previous_page_number }}"><上一页</a></li>
+				{% endif %}
+
+				{% for pindex in paginator.page_range %}
+					{% if pindex == page.number %}
+						<li><a href="/search?q={{ query }}&page={{ pindex }}" class="cur">{{ pindex }}</a></li>
+					{% else %}
+						<li><a href="/search?q={{ query }}&page={{ pindex }}">{{ pindex }}</a></li>
+					{% endif %}
+				{% endfor %}
+
+				{% if page.has_next %}
+					<li><a href="/search?q={{ query }}&page={{ page.next_page_number }}">下一页></a></li>
+				{% endif %}
+			</ul>
+		</div>
+
+        {% endblock body-content %}
+
+        {% block bottomfile %}
+			<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%} "></script>
+			<script type="text/javascript">
+				$(function(){
+
+					$('.add').click(function(){
+						var sku_id = $(this).attr('sku_id');
+
+						var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+
+						var count = 1;
+
+						parems = {'sku_id': sku_id, 'count': count, 'csrfmiddlewaretoken': csrf }
+
+						$.post('/cart/add', parems, function(data){
+
+							   if(data.ret == 5){
+							   	   alert(data.msg);
+							   }
+							   else{
+							   	  alert(data.ermsg);
+							   }
+						})
+					})
+				})
+			</script>
+		{% endblock bottomfile %}
+
+         

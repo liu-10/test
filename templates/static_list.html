@@ -1,0 +1,158 @@
+{% extends 'static_base.html' %}
+{% load static %}
+
+	{% block link %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%} ">
+	{% endblock link %}
+
+	{% block title %}
+	<title>商品列表</title>
+	{% endblock title %}
+
+
+		{% block body-content %}
+          <div class="content-headerline">
+          	   <div class="sort">
+          	   			全部分类
+      			</div>		
+				<!-- <span><a href="#">生活必备</a></span>
+				<span>|</span> 
+				<span><a href="#">救急药品</a></span>
+				<span>|</span> 
+				<span><a href="#">诱人美食</a></span>
+				<span>|</span> 
+				<span><a href="#">精品书籍</a></span>
+				<a href="#" class="more">更多></a> -->
+          	   
+          </div>
+
+          <div class="content-body">
+             <div class="new">
+          	 	<div class="new-header">新推荐</div>
+          	 	<ul class="new-list">
+          	 		<li class="ls">
+          	 			<div class="new-name">苹果</div>
+          	 			<div class="new-img"></div>
+          	 		</li>
+          	 		<li class="ls">
+          	 			<div class="new-name">苹果</div>
+          	 			<div class="new-img"></div>
+          	 		</li>
+          	 	</ul>
+          	 </div>
+          	 <div class="content-list">
+          	 	<div class="list-header">
+          	 		<div class="fld cur">默认</div>
+          	 		<div class="fld">人气</div>
+          	 		<div class="fld">价格</div>
+          	 	</div>
+          	 	<ul class="list-content new-list">
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li><li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+<!--           	 		</li><li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li> -->
+          	 	</ul>
+          	 	<ul class="list-page">
+          	 		<li class="ls fl"><a href="#"><上一页</a> </li>
+          	 		<li class="ls fl">1</li>
+          	 		<li class="ls fl">2</li>
+          	 		<li class="ls fl">3</li>
+          	 		<li class="ls fl"><a href="#">下一页></a> </li>
+          	 	</ul>
+          	 </div>
+          		
+          </div>
+
+          {% endblock body-content %}
+
+         

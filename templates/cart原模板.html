@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<!-- 移动端必有的 -->
+	<meta name="viewport" content="width=device-width,user-scalable=no,
+	initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/css/cart.css">
+	<title>购物车</title>
+    <script type="text/javascript" src="./jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            update_page_info();
+
+            $('.add').click(function(){
+                var num = $(this).prev().val();
+                // alert(num);
+                num ++;
+                $(this).prev().val(num);
+                update_page_info();
+            })
+
+            $('.rem').click(function(){
+                var num = $(this).next().val();
+                // alert(num);
+                num --;
+                if(num < 1){
+                    num = 1;
+                    $(this).next().val(num);
+                }
+                else{
+                    $(this).next().val(num);
+                }
+                update_page_info();
+               
+            })
+
+            function update_page_info(){
+                    var total_num = 0
+                    var total_price = 0
+                    $('.goods_list').find(':checked').parents('li').each(function(){
+                        count = $(this).find('.num').val();
+                        // alert(count);
+                        u_price = $(this).find('.ano4 em').html();
+                        // alert(u_price);
+                        $(this).find('.ano6 em').html(parseFloat(count * u_price).toFixed(2)); 
+                        t_p = $(this).find('.ano6 em').html();
+
+                        //计算总数，总价
+                        total_num += parseInt(count);
+                        total_price += parseFloat(t_p);
+                    })
+                    $('.count1 span').html(total_price);
+                    $('.count2 span').html(total_num);
+            }
+
+            $('.ano').click(function(){
+                update_page_info();
+            })
+        })
+    </script>
+</head>
+<body>  
+         <div class="header">
+                <div class="wel">快易点欢迎您!!</div>
+                <div class="header-info">
+                    <div class="header-user" style="display: none;"><em>欢迎您，张三</em></div>
+                    <div class="header-user">
+                        <a href="#" class="go-login">欢迎您，请登录</a>
+                        <a href="#" class="go-register">免费注册</a>
+                    </div>
+                    <div class="user-info">
+                        <a href="#"><span>个人中心</span></a>    
+                        <a href="#"><span>我的购物车</span></a> 
+                        <a href="#"><span>我的xxxx</span></a> 
+                    </div>
+                </div>
+          </div>
+
+		<div class="logo">
+				LOGO
+				<span>|</span>
+				<span>购物车</span>
+			</div>
+	    <div class="search-text">
+      		<input type="text" name="" placeholder="搜索商品" class="se-text">
+      		<input type="submit" name="" value="搜索" class="se-btn">
+	    </div>
+
+	    <div class="content">
+	    	<div class="count">全部商品共 <span>2</span> 件</div>
+            <div class="goods">
+                <span>商品名称</span>
+                <span>商品单位</span>
+                <span>商品价格</span>
+                <span>数量</span>
+                <span>小计</span>
+                <span>操作</span>
+            </div>
+            <div class="goods_list">
+                <ul>
+                    <li>
+                        <span class="ano"><input type="checkbox" name="" checked></span>
+                        <div class="ano1">图片</div>
+                        <span class="ano2">电池</span>
+                        <span class="ano3">500g</span>
+                        <span class="ano4"><em>25.80</em>元</span>
+                        <span class="ano5">
+                            <div class="num-text">
+                               <div class="rem">-</div>
+                               <input type="text" name="" value="1" class="num"> 
+                               <div class="add">+</div>
+                            </div>
+                        </span>
+                        <span class="ano6"><em>25.80</em>元</span>
+                        <span class="ano7">删除</span>
+                    </li>
+                    <li>
+                        <span class="ano"><input type="checkbox" name="" checked></span>
+                        <div class="ano1">图片</div>
+                        <span class="ano2">电池</span>
+                        <span class="ano3">600g</span>
+                        <span class="ano4"><em>30.50</em>元</span>
+                        <span class="ano5">
+                            <div class="num-text">
+                               <div class="rem">-</div>
+                               <input type="text" name="" value="1" class="num"> 
+                               <div class="add">+</div>
+                            </div>
+                        </span>
+                        <span class="ano6"><em>30.50</em>元</span>
+                        <span class="ano7">删除</span>
+                    </li>
+                    <li>
+                        <span class="ano"><input type="checkbox" name="" checked></span>
+                        <div class="ano1">图片</div>
+                        <span class="ano2">电池</span>
+                        <span class="ano3">600g</span>
+                        <span class="ano4"><em>30.50</em>元</span>
+                        <span class="ano5">
+                            <div class="num-text">
+                               <div class="rem">-</div>
+                               <input type="text" name="" value="1" class="num"> 
+                               <div class="add">+</div>
+                            </div>
+                        </span>
+                        <span class="ano6"><em>30.50</em>元</span>
+                        <span class="ano7">删除</span>
+                    </li>
+                </ul>
+                <div class="sum">
+                    <div class="sum_list">
+                        <input type="checkbox" name="" checked>
+                        <span>全选</span>
+                        <div class="sum1">
+                            <div class="count1">合计(不含运费):￥<span>142.60</span>元</div>
+                            <div class="count2">共计 <span>2</span> 件商品</div>
+                        </div>
+                    </div>
+                    <div class="btn">去结算</div>
+                </div>
+            </div>
+	    </div>
+</body>
+</html>

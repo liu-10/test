@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+	
+	{% block link %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/order-detail.css'%} ">
+		<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%} "></script>
+		<script type="text/javascript" src="{% static 'js/order-detail.js'%} "></script>
+	{% endblock link %}
+
+	{% block title %}
+		<title>预定商品详情</title>
+	{% endblock title %}
+
+	{% block bottomfile %}
+		<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%} "></script>
+		<script type="text/javascript">
+			$(function(){
+
+				
+
+					$('.prev-order').click(function(){
+
+							$('.pop').show();
+					})
+
+					$('.sub').click(function(){
+                        
+
+                        var sku_ids = $('.sku_ids').val();
+                        var addr_id = $('.addr_id').val();
+                        var pay_method = $(this).siblings('.pay').find(':checked').val();
+                        var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+                        var count = $('.gd-text').val();
+                        var tar = $('.order-id').val();
+
+                        alert($(this).siblings('.pay').find(':checked').val());
+                        alert(sku_ids);
+                        alert(addr_id);
+
+                        params = {'sku_ids': sku_ids, 'addr_id': addr_id, 'pay_method': pay_method, 'csrfmiddlewaretoken': csrf, 'count': count, 'tar': tar}
+
+                        $.post('/order/commit', params, function(data){
+
+                                 if(data.res == 5){
+                                    alert(data.msg);
+                                    $('.pop').hide();
+                                 }
+                                 else{
+                                    alert(data.ermsg);
+                                 }
+
+                        })
+
+                     })
+				})
+		</script>
+	{% endblock bottomfile %}
+		{% block sum %}{% endblock sum %}
+         
+		{% block body-content %}
+         <div class="content-body">
+         		<div class="detail-img"></div>
+         		<div class="detail-info">
+         			  <div class="detail-name ml">{{ sku.name }}</div>
+         			  <div class="detail-price ml">￥<span>{{ sku.price }}</span></div>
+         			  <div class="detail-addr ml">地址：{{ sku.address }}</div>
+         			  <div class="detail-desc ml">{{ sku.desc }}</div>
+         			  <div class="total-text ml">
+         			  		总	价：
+         			  		<span>{{ sku.price }}</span>
+         			  		元
+         			  </div>
+         			  <div class="gd-num ml">
+         			  		<input type="text" name="" value="" class="gd-text" placeholder="1">
+         			  		<div class="up">+</div>
+         			  		<div class="down">-</div>
+         			  </div>
+         			  <div class="prev-order ">立即预定</div>
+         		</div>
+         		<div class="new">
+         			<div class="new-header">其他推荐</div>
+					{% for new in news%}
+						<li class="clearlist">
+							<div class="new-img"></div>
+							<div class="new-name">{{ new.name }}</div>
+						</li>
+         			{% endfor %}
+         		</div>
+
+         		<div class="detail-comment">
+         			<div class="comment-header">评论</div>
+         			<ul class="comment-content">
+         				{% for good in page_skus %}
+	         				<li class="clearlist">
+	         					{% if good.comment%}
+		         					<div class="avator-info">
+		         						
+				         					<div class="avator-headimg"></div>
+				         					<div class="avator-name">{{ good.observer }}</div>
+				         			</div>	
+			         				<div class="avator-content">{{ good.comment }}</div>
+	         					{% else %}
+		         					暂无评论
+		         				{% endif %}
+		         			</li>
+	         			{% endfor %}
+         			</ul>
+         			<div class="comment-page">
+         				<ul>
+         					{% if page_skus.has_previous %}
+         						<li class="clearlist fl"><a href="{% url 'goods:order-detail' gid page_skus.previous_page_number %}"><上一页</a></li>
+         					{% endif %}
+         					{% for pindex in pages %}
+         						{% if pindex == pages.number %}
+		         					<li class="clearlist fl"><a href="{% url 'goods:order-detail' gid pindex %}">{{ pindex }}</a></li>
+		         				{% else %}
+		         					<li class="clearlist fl"><a href="{% url 'goods:order-detail' gid pindex %}">{{ pindex }}</a></li>
+		         				{% endif %}
+	         				{% endfor %}
+         					{% if page_skus.has_next %}
+         						<li class="clearlist fl"><a href="{% url 'goods:order-detail' gid page_skus.next_page_number %}">下一页></a></li>
+         					{% endif%}
+         				</ul>
+         			</div>
+         		</div>
+         </div>
+
+         <div class="cart-box"></div>
+
+         <div class="pop" style="display: none;">
+            {% csrf_token %}
+            <div class="pay">
+               <input type="radio" name="pay_method" value="1" class="p-fl">支付宝
+               <input type="radio" name="pay_method" value="2" class="p-fl">微信
+               <input type="radio" name="pay_method" value="3" class="p-fl">货到付款
+               <input type="radio" name="pay_method" value="4" class="p-fl">银联
+             </div>  
+            <input type="hidden" name="sku_id" value="{{ sku.id }}" class="sku_ids">  
+            <input type="hidden" name="addr_id" value="{{ address.id }}" class="addr_id">
+            <input type="hidden" name="" value="9527" class="order-id">
+            <input type="submit" name="" class="sub">
+         </div>
+
+         {% endblock body-content %}

@@ -1,0 +1,327 @@
+.body{
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    width: 100%;
+    height: 30px;
+    background-color: #f1f1f1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 30px;
+
+
+}
+
+.wel{
+    float: left;
+    margin-left: 150px;
+    font-size: 14px;
+}
+
+.header-info{
+    float: right;
+    margin-right: 150px;
+    font-size: 14px;
+    /*border: 1px solid #000;*/
+}
+
+.header-user{
+    float: left;
+    overflow: hidden;
+    margin-right: 10px;
+
+}
+
+.user-info{
+    float: right;
+}
+
+.user-info span{
+    margin-right: 10px;
+}
+
+.user-info a{
+    text-decoration: none;
+}
+
+.go-login{
+    text-decoration: none;
+}
+
+.go-register{
+    color: red;
+    text-decoration: none;
+}
+
+.header-user a{
+    margin-right:10px;
+}
+
+.content-header{
+    position: absolute;
+    left: 100px;
+    top: 70px;
+    border: 1px solid #000;
+    width: 1200px;
+    height: 100px;
+    /*overflow: hidden;*/
+}
+
+.logo{
+    font-size: 50px;
+    font-weight: bold;
+    position: absolute;
+    left: 150px;
+    top: 50px;
+}
+
+.logo a{
+    text-decoration: none;
+}
+
+.search-text{
+    /*position: absolute;*/
+    margin-left: 740px;
+    margin-top: 70px;
+    width: 500px;
+    height: 42px;
+    border: 1px solid #000;
+    font-size: 0;
+    line-height: 40px;
+    padding: 0;
+}
+
+.se-text{
+    width: 422px;
+    height: 35px;
+    font-size: 16px;
+    border: 1px solid #000;
+    padding: 3px;
+    float: left;
+}
+
+.se-btn{
+    height: 42px;
+    width: 70px;
+    font-size: 16px;
+    /*border: 2px solid #000;*/
+/*          border: none;*/
+    padding: 0;
+    background-color: #f1f1f1;
+    float: left;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+
+}
+
+.content{
+    width: 1100px;
+    overflow: hidden;
+    border: 1px solid #000;
+    float: left;
+    margin-top: 50px;
+    margin-left: 150px;
+}
+
+.count{
+    padding-left: 20px;
+    border: 1px solid #000;
+    height: 30px;
+    line-height: 30px;
+}
+
+.count span{
+    color: red;
+}
+
+.goods{
+    height: 40px;
+    line-height: 40px;
+    background-color: #f1f1f1;
+}
+.goods span{
+    margin-left: 120px;
+}
+
+.goods_list{
+    overflow: hidden;
+    border: 1px solid #000;
+}
+
+.goods_list ul{
+    padding: 0;
+    margin: 0;
+}
+
+.goods_list li{
+    list-style: none;
+    height: 120px;
+    border: 1px solid #000;
+    line-height: 120px;
+}
+
+.goods_list .ano{
+    margin-left: 20px;
+    float: left;
+}
+
+.goods_list .ano1{
+    margin-left: 40px;
+    background-color: gold;
+    width: 80px;
+    height: 80px;
+    border: 1px solid #000;
+    float: left;
+    line-height: 80px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.goods_list .ano2{
+    margin-left: 10px;
+    width: 150px;
+    float: left;
+}
+
+.goods_list .ano3{
+    /*margin-left: 120px;*/
+    float: left;
+}
+
+.goods_list .ano4{
+    margin-left: 140px;
+    float: left;
+}
+
+.goods_list .ano5{
+    margin-left: 95px;
+    float: left;
+}
+
+.goods_list .ano6{
+    margin-left: 77px;
+    float: left;
+}
+
+.goods_list .ano7{
+    margin-left: 110px;
+    float: left;
+    cursor: pointer;
+    
+}
+
+.num-text{
+    width: 96px;
+    height: 25px;
+    border: 1px solid #000;
+    margin-top: 50px;
+}
+
+.add{
+    float: left;
+    height: 23px;
+    border: 1px solid #000;
+    line-height: 23px;
+    text-align: center;
+    width: 23px;
+    cursor: pointer;
+}
+
+.num{
+    height: 23px;
+    width: 40px;
+    border: 1px solid #000;
+    float: left;
+    text-align: center;
+    line-height: 23px;
+}
+
+.rem{
+    float: left;
+    height: 23px;
+    border: 1px solid #000;
+    line-height: 23px;
+    text-align: center;
+    width: 23px;
+    cursor: pointer;
+}
+
+.sum{
+    height: 100px;
+    border: 1px solid #000;
+}
+
+.sum_list{
+    height: 100px;
+    width: 850px;
+   /* border: 1px solid #000;*/
+    float: left;
+    line-height: 100px;
+    margin-left: 20px;
+}
+
+.sum1{
+    float: right;
+    height: 100px;
+    margin-right: 10px;
+
+}
+
+.count1{
+    height: 50px;
+    line-height: 50px;
+}
+
+.count1 span{
+    color: red;
+}
+
+.count2{
+    height: 50px;
+    line-height: 50px;
+    float: right;
+}
+
+.btn{
+    float: left;
+    height: 100px;
+    width: 222px;
+    line-height: 100px;
+    text-align: center;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-size: 30px;
+    color: #f1f1f1;
+    font-weight: bold;
+    background-color: red;
+    text-decoration: none;
+}
+
+.fix-em{
+    font-style: normal;
+}
+
+.header-user .quit{
+    color: red;
+    text-decoration: none;
+    float: right;
+    width: 32px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.r{
+    color: red;
+}
+
+.none_cart{
+    line-height: 40px;
+    height: 40px;
+    margin-left: 500px;
+    color: red;
+    font-weight: bold;
+}

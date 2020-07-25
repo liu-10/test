@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+	{% block link %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/login.css'%} ">
+	{% endblock link %}
+
+	{% block title %}
+		<title>登录</title>
+	{% endblock title %}
+
+	{% block header-info %}{% endblock header-info %}
+	{% block logo-search %}{% endblock logo-search %}
+	{% block sum %}{% endblock sum %}
+	{% block body-content %}
+	  <div class="banner">
+	  	<div class="logo">LOGO</div>
+	  		<div class="logo_content">
+	  			<div class="user-login">用户登录</div>
+	  			<form method="post" class="user-form">
+					{% csrf_token %}
+		  			<label>用户名:</label>
+		  			<input type="text" name="username" value="{{ username }}">
+		  			<div class="username-error"  style="display:none">*用户名不能为空</div>
+		  			<label>密&nbsp;&nbsp;&nbsp;码:</label>
+		  			<input type="password" name="password">
+		  			<div class="password-error" style="display:none">*密码不能为空</div>
+		  			<div class="form-check">
+		  				<label>验证码:</label>
+		  				<input type="text" name="check-info" class="check-info">
+		  				<div class="check-img">{{ vcode }}</div>
+		  				<a href="/user/login" class="refresh">看不清?换一张</a>
+		  			</div>
+		  			<div class="user-link">
+			  			<a href="#" class="forget">忘记密码?</a>
+			  			<a href="/user/register" class="register">还未注册，快去注册吧></a>
+			  		</div>
+					<div class="remember-user">
+						<input type="checkbox" name="remember" {{ check }}>
+						记住用户名
+					</div>
+		  			<input type="submit" name="" value="提交" class="sub">
+					<div>{{ content }}</div>
+				</form>
+	  		</div>
+	  </div>
+
+	  {% endblock body-content %}
+	  	}

@@ -1,0 +1,35 @@
+{% extends 'static_base.html' %}
+{% load static %}
+	
+	{% block link %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/order_list.css'%} ">
+	{% endblock link %}
+
+	{% block title %}
+		<title>搜索商品结果</title>
+	{% endblock title %}
+
+     
+		{% block body-content %}
+          <div class="content-headerline">
+          	   <div class="sort">
+          	   			全部分类
+      			</div>		
+				<!-- <span><a href="#">生活必备</a></span>
+				<span>|</span> 
+				<span><a href="#">救急药品</a></span>
+				<span>|</span> 
+				<span><a href="#">诱人美食</a></span>
+				<span>|</span> 
+				<span><a href="#">精品书籍</a></span>
+				<a href="#" class="more">更多></a> -->
+          	   
+          </div>
+
+          <div class="content-body">
+          	  <div class="">搜索结果如下:</div>
+          		
+          </div>
+
+          {% endblock body-content %}
+         

@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+   {% block title%}
+        <title>付款页面</title>
+   {% endblock title%}
+   
+   {% block link %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/place-order.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%}"></script>
+   {% endblock link %}
+
+    {% block logo-search%}
+          
+
+    {% endblock logo-search%}
+
+    {% block sum %}{% endblock sum %}
+
+    <!--内容框-->
+    {% block body-content %}
+	    <div class="content">
+	    	<div class="addr-check">确认收货地址</div>
+
+            <div class="addr">
+                    <div class="addr1">寄送到:</div>
+                    <div class="add2">
+                        {% for addr in address %}
+                            <input type="radio" value="{{ addr.id }}" name="address" {% if addr.is_default %}checked{% endif %}>
+                            {{ addr.address }}  {{ addr.receiver}}(收) {{ addr.phone }}
+                            <br/>
+                        {% endfor %}
+                    </div>
+            
+            <div class="addr3"><a href="/user/user-info-site">编辑收货地址</a></div>
+            </div>
+
+            <div class="paid-way">支付方式</div>
+	    	<div class="paid">
+                <li><input type="radio" name="pay_method" value="1" checked>支付宝支付</li>
+                <li><input type="radio" name="pay_method" value="2">微信支付</li>
+                <li><input type="radio" name="pay_method" value="3">货到付款</li>
+                <li><input type="radio" name="pay_method" value="4">银联支付</li> 
+	    	</div>
+
+            <div class="goods">商品列表</div>
+	    	<div class="goods-header">
+                    <div class="line1">商品名称</div>
+                    <div class="line2">商品单位</div>
+                    <div class="line3">商品价格</div>
+                    <div class="line4">数量</div>
+                    <div class="line5">小计</div> 
+            </div>	
+            <div class="goods-list">
+                {% for sku in skus %}
+                    <div class="list">
+                        <li class="po0">{{ forloop.counter }}</li>
+                        <li class="img">img {{ sku.name }}</li>
+                        <li class="po1">{{ sku.unit }}</li>
+                        <li class="po2">{{ sku.price }}元</li>
+                        <li class="po3">{{ sku.count }}</li>
+                        <li class="po4">{{ sku.amount }}元</li>
+                    </div>
+                {% endfor %}
+	    	</div>
+
+            <div class="total">总金额结算</div>
+            <div class="total-header">
+                <div class="pri">
+                    共 <span>{{ total_count }}</span> 件商品，总金额 <span>{{ total_price }}元</span>
+                </div>
+                <div class="pri1">运费: <span>10元</span></div>
+                <div class="pri2">实付款: <span>{{ total_price_num }}元</span></div>
+            </div>
+            {% csrf_token %}
+            <a href="javascript:;" sku_ids='{{ sku_ids }}' class="btn">提交订单</a>
+	    </div>
+        <div class="pop">
+                订单创建成功
+        </div>
+    {% endblock body-content %}
+
+       
+        {% block bottomfile%}
+                <script type="text/javascript">
+                        $('.btn').click(function(){
+                            //提交商品的id
+                            sku_ids = $(this).attr('sku_ids');
+
+                            // 提交用户的地址id
+                            addr_id = $('input[name="address"]:checked').val();
+                            alert(addr_id);
+                            //购买的方式
+                            pay_method = $('input[name="pay_method"]:checked').val();
+                            alert(pay_method);
+                            csrf = $('input[name="csrfmiddlewaretoken"]').val();
+                            // alert(csrf)
+                            partems = {'sku_ids':sku_ids,'addr_id':addr_id,'pay_method':pay_method,'csrfmiddlewaretoken':csrf}
+
+                            //ajax post 方式请求
+                            $.post('/order/commit',partems,function(data){
+                                    if(data.res == 5){
+                                        $('.pop').fadeIn('fast',function(){
+
+                                            setTimeout(function(){
+                                                $('.pop').fadeOut('fast',function(){
+                                                    window.location.href = '/user/user-center-order/1'
+                                                })
+                                            },3000)
+                                            
+                                        });
+                                        
+                                    }
+                                    else{
+                                        alert(data.ermsg);
+                                    }
+
+                            })
+
+                        })
+
+                        $('.context').click(function(){
+                            $('.pop').fadeIn();
+                        })
+
+
+                </script>
+
+        {% endblock bottomfile%}

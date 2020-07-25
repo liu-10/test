@@ -1,0 +1,161 @@
+.body{
+	margin: 0;
+	padding: 0;
+}
+
+.banner{
+	height: 550px;
+	width: 100%;
+	position: absolute;
+	top: 50px;
+	left: 0;
+	background-color: lightblue;
+	/*display: none;*/
+
+}
+
+.logo{
+	position: absolute;
+	top: 30px;
+	left:50%;
+	margin-left: -60px;
+	font-weight: bold;
+	font-size: 40px;
+}
+
+.logo_content{
+		border: 2px solid #000;
+		/*height: 350px;*/
+		width: 600px;
+		background-color: #fff;
+		position: absolute;
+		left: 50%;
+		margin-left: -300px;
+		top: 150px;
+		overflow: hidden;
+}
+
+.h{
+	height: 2px;
+	width: 100%;
+	background-color: #000;
+	position: absolute;
+	top: 630px;
+	left: 0;
+}
+
+.copyright{
+	position: absolute;
+	left: 50%;
+	top: 650px;
+	margin-left: -150px;
+	text-align: center;
+}
+
+.user-login{
+	width: 300px;
+	height: 40px;
+/*			border: 1px solid #000;*/
+	font-size: 30px;
+	font-weight: bold;
+	color: green;
+	position: absolute;
+	left: 50%;
+	top:20px;
+	margin-left: -150px;
+	text-align: center;
+}
+
+.user-form{
+	margin: 60px 100px 30px 100px;
+/*			border: 1px solid #000;*/
+	width: 400px;
+	overflow: hidden;
+	font-size: 20px;
+
+}
+
+.user-form label{
+	margin:5px 20px; 
+}
+
+.user-form input{
+	width: 200px;
+	height: 20px;
+	margin-top: 20px; 
+
+}
+
+.user-form .sub{
+	height: 40px;
+	width: 250px;
+	background-color: green;
+	margin-top: 10px;
+	border: none;
+	/*left: 50%;*/
+	margin-left: 80px;
+	font-size: 20px;
+	color: #fff;
+
+}
+
+.username-error, .password-error{
+	height: 20px;
+	width: 200px;
+	margin-left: 110px;
+	font-size: 16px;
+	color: red;
+}
+
+.user-link .forget{
+	margin-left: 65px;
+	color: blue;
+	font-size: 15px;
+	margin-top: 20px;
+
+}
+
+.user-link .register{
+	margin-left: 80px;
+	font-size: 15px;
+	margin-top: 20px;
+
+}
+
+.user-link{
+	height: 40px;
+	width: 400px;
+/*			border: 1px solid #000;*/
+	margin-top: 10px;
+	line-height: 40px;
+}
+
+.user-form .check-info{
+	width: 80px;
+}
+
+.check-img{
+	display: inline-block;
+	width: 70px;
+	height: 25px;
+	font-size:16px;
+	line-heigh:25px;
+	padding-left: 10px;
+	border: 1px solid #000;
+}
+
+.refresh{
+	display: inline-block;
+	font-size: 16px;
+
+}
+
+.user-form .remember-user{
+	font-size: 16px;
+}
+
+.user-form .remember-user input{
+	height: 12px;
+	width: 12px;
+	margin-left: 20px;
+}

@@ -1,0 +1,82 @@
+{% extends 'static_base.html' %}
+{% load static %}
+
+	{% block link %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/daily-detail.css'%} ">
+		<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%} "></script>
+		<script type="text/javascript" src="{% static 'js/daily-detail.js'} "></script>
+	{% endblock link %}
+
+	{% block title %}
+		<title>商品详情</title>
+	{% endblock title %}
+
+        {% block body-content %}
+
+	    {% block body-content %}
+         <div class="content-body">
+         		<div class="detail-img"></div>
+         		<div class="detail-info">
+         			  <div class="detail-name ml">电池</div>
+         			  <div class="detail-price ml">￥<span>2</span>元/个</div>
+         			  <div class="detail-addr ml">地址：福建省福州市xxxxxxxxxxxxxxxxxx</div>
+         			  <div class="detail-desc ml">聚能环的南孚电池</div>
+         			  <div class="total-text ml">
+         			  		总	价：
+         			  		<span>2.00</span>
+         			  		元
+         			  </div>
+         			  <div class="gd-num ml">
+         			  		<input type="text" name="" value="" class="gd-text" placeholder="1">
+         			  		<div class="up">+</div>
+         			  		<div class="down">-</div>
+         			  </div>
+         			  <div class="prev-order mlo">立即购买</div>
+         			  <div class="add-cart mlo">加入购物车</div>
+         		</div>
+         		<div class="new">
+         			<div class="new-header">新推荐</div>
+         			<li class="clearlist">
+         				<div class="new-img"></div>
+         				<div class="new-name">xxxx</div>
+         			</li>
+         			<li class="clearlist">
+         				<div class="new-img"></div>
+         				<div class="new-name">xxxx</div>
+         			</li>
+         		</div>
+
+         		<div class="detail-comment">
+         			<div class="comment-header">评论</div>
+         			<ul class="comment-content">
+         				<li class="clearlist">
+         					<div class="avator-info">
+		         				<div class="avator-headimg"></div>
+		         				<div class="avator-name">记忆中的你</div>
+		         			</div>	
+	         				<div class="avator-content">你值得拥有，是个很好的推荐，不容错过</div>
+	         			</li>
+	         			<li class="clearlist">
+	         				<div class="avator-info">
+		         				<div class="avator-headimg"></div>
+		         				<div class="avator-name">记忆中的你</div>
+		         			</div>	
+	         				<div class="avator-content">你值得拥有，是个很好的推荐，不容错过</div>
+	         			</li>
+         			</ul>
+         			<div class="comment-page">
+         				<ul>
+         					<li class="clearlist fl"><a href="#"><上一页</a> </li>
+         					<li class="clearlist fl">1</li>
+         					<li class="clearlist fl">2</li>
+         					<li class="clearlist fl">3</li>
+         					<li class="clearlist fl"><a href="#">下一页></a> </li>
+         				</ul>
+         			</div>
+         		</div>
+         </div>
+
+         <div class="cart-box"></div>
+
+         {% endblock body-content %}
+		 

@@ -1,0 +1,92 @@
+{% extends 'static_base.html' %}
+{% load static %}
+	
+	{% block link %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/order-detail.css'%} ">
+	{% endblock link %}
+
+	{% block title %}
+		<title>预定商品详情</title>
+	{% endblock title %}
+
+	{% block bottomfile %}
+		<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%} "></script>
+		<script type="text/javascript">
+			$(function(){
+
+				
+
+					$('.prev-order').click(function(){
+
+							var num = $('.cart-num').html();
+							// alert(parseInt(num));
+							$('.cart-box').show();
+							$('.cart-box').css({'left':700,'top':537});
+							$('.cart-box').stop().animate({'left':1150,'top':114});
+							$('.cart-box').fadeOut();
+							num++;
+							$('.cart-num').html(num);
+					})
+
+				})
+		</script>
+	{% endblock bottomfile %}
+
+    {% block body-content %}
+
+         
+		{% block body-content %}
+         <div class="content-body">
+         		<div class="detail-img"></div>
+         		<div class="detail-info">
+         			  <div class="detail-name ml">廊桥大酒店</div>
+         			  <div class="detail-price ml">￥150</div>
+         			  <div class="detail-addr ml">地址：福建省福州市xxxxxxxxxxxxxxxxxx</div>
+         			  <div class="detail-desc ml">舒服，干净，卫生，家一样的体验</div>
+         			  <div class="prev-order ml"><a href="#" class="clear-a">立即预定</a></div>
+         		</div>
+         		<div class="new">
+         			<div class="new-header">其他推荐</div>
+         			<li class="clearlist">
+         				<div class="new-img"></div>
+         				<div class="new-name">xxxx</div>
+         			</li>
+         			<li class="clearlist">
+         				<div class="new-img"></div>
+         				<div class="new-name">xxxx</div>
+         			</li>
+         		</div>
+
+         		<div class="detail-comment">
+         			<div class="comment-header">评论</div>
+         			<ul class="comment-content">
+         				<li class="clearlist">
+         					<div class="avator-info">
+		         				<div class="avator-headimg"></div>
+		         				<div class="avator-name">记忆中的你</div>
+		         			</div>	
+	         				<div class="avator-content">你值得拥有，是个很好的推荐，不容错过</div>
+	         			</li>
+	         			<li class="clearlist">
+	         				<div class="avator-info">
+		         				<div class="avator-headimg"></div>
+		         				<div class="avator-name">记忆中的你</div>
+		         			</div>	
+	         				<div class="avator-content">你值得拥有，是个很好的推荐，不容错过</div>
+	         			</li>
+         			</ul>
+         			<div class="comment-page">
+         				<ul>
+         					<li class="clearlist fl"><a href="#"><上一页</a> </li>
+         					<li class="clearlist fl">1</li>
+         					<li class="clearlist fl">2</li>
+         					<li class="clearlist fl">3</li>
+         					<li class="clearlist fl"><a href="#">下一页></a> </li>
+         				</ul>
+         			</div>
+         		</div>
+         </div>
+
+         <div class="cart-box"></div>
+
+         {% endblock body-content %}

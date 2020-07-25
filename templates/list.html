@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+	{% block link %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%} ">
+		<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%}"></script>
+		<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+	{% endblock link %}
+
+	{% block title %}
+	<title>商品列表</title>
+	{% endblock title %}
+
+     {% block sum %}
+          <div class="content-headerline">
+                  <div class="row">
+                     <div class="dropdown">  
+                         <div class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                              全部商品分类
+                              <span class="caret"></span>       <!-- 这是向下的小箭头 -->
+                         </div>
+
+                         <ul class="dropdown-menu">
+                              {% for type in type_all %}
+                                   <li><a href="/goods/list/{{ type.id }}/1?sort=default">{{ type }}</a><span><a href="/goods/list/{{ type.id }}?sort=default">></span></a></li>
+                              {% endfor %}
+                         </ul>
+                     </div>
+                 </div>
+
+          </div>
+
+     {% endblock sum %}
+
+	{% block body-content %}
+     <div class="content-body">
+        <div class="new">
+     	 	<div class="new-header">新推荐</div>
+     	 	<ul class="new-list">
+                    {% for new in news %}
+          	 		<li class="ls">
+          	 			<div class="new-name"><a href="/goods/{{ new.gd_type }}/{{ new.id }}">{{ new.name }}</a> </div>
+          	 			<div class="new-img"><a href=""></a></div>
+          	 		</li>
+     	 		{% endfor %}
+     	 	</ul>
+     	 </div>
+     	 <div class="content-list">
+     	 	<div class="list-header">
+     	 		<div {% if sort == 'default' %} class="cur" {% endif %}><a href="{% url 'goods:daily-list' type.id 1 %}?sort=default"  class="fld">默认</a></div>
+     	 		<div {% if sort == 'hot' %} class="cur" {% endif %}><a href="{% url 'goods:daily-list' type.id 1 %}?sort=hot"  class="fld">人气</a></div>
+     	 		<div {% if sort == 'price' %} class="cur" {% endif %}><a href="{% url 'goods:daily-list' type.id 1 %}?sort=price"  class="fld">价格</a></div>
+     	 	</div>
+     	 	<ul class="list-content new-list">
+                    {% for sku in page_skus %}
+                         {% csrf_token %}
+          	 		<li class="list-li ls">
+          	 			<div class="list-name"><a href="/goods/daily-detail/{{ sku.id }}">{{ sku.name }}</a> </div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">{{ sku.price }} {{ sku.unit}}</div>
+          	 			<div class="add" sku_id={{sku.id }}></div>
+          	 		</li>
+     	 		{% endfor %}
+     	 	</ul>
+     	 	<ul class="list-page">
+                    {% if page_skus.has_previous %}
+     	 		      <li class="ls fl"><a href="{% url 'goods:daily-list' type.id page_skus.previous_page_number %}?sort={{ sort }}"><上一页</a> </li>
+                    {% endif %}
+                    {% for pindex in pages %}
+                       {% if pindex == page_skus.number %}
+          	 		<li class="ls fl"><a href="{% url 'goods:daily-list' type.id pindex %}?sort={{ sort }}" class="cur-a">{{ pindex }}</a></li>
+                       {% else %}
+          	 		<li class="ls fl"><a href="{% url 'goods:daily-list' type.id pindex %}?sort={{ sort }}">{{ pindex }}</li>
+          	 	   {% endif %}
+                    {% endfor %}
+                    {% if page_skus.has_next %}
+     	 		      <li class="ls fl"><a href="{% url 'goods:daily-list' type.id page_skus.next_page_number %}?sort={{ sort }}">下一页></a> </li>
+                    {% endif %}
+     	 	</ul>
+     	 </div>
+     		
+     </div>
+
+     {% endblock body-content %}
+
+     {% block bottomfile %}
+          <script type="text/javascript">
+               $(function(){
+
+                    $('.add').click(function(){
+
+                         var sku_id = $(this).attr('sku_id');
+                         var count = 1;
+                         var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+
+                         parems = {'sku_id': sku_id, 'count': count, 'csrfmiddlewaretoken': csrf}
+
+                         $.post('/cart/add', parems, function(data){
+
+                              if(data.ret == 5){
+                                   alert(data.msg)
+                              }
+                              else{
+                                   alert(data.ermsg)
+                              }
+                         })
+                    })
+
+
+               })
+          </script>
+     {% endblock bottomfile %}
+
+
+         

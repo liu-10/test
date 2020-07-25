@@ -1,0 +1,122 @@
+{% extends 'center.html' %}
+{% load static %}
+
+	{% block link%}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/user-center-info.css'%} ">
+	{% endblock link%}
+
+	{% block title %}
+		<title>个人中心</title>
+	{% endblock title %}     
+
+	{% block header %}
+	        <div class="header">
+	      		<div class="wel">快易点欢迎您!!</div>
+	      		<div class="header-info">
+	                {% if user.is_authenticated %}
+	                    <div class="header-user">
+							欢迎您，<em class="fix-em">{{ user.username }}</em>
+							<a href="/user/logout" class="quit">退出</a>
+						</div>
+	                {% else %}
+	                    <div class="header-user">
+	                        <a href="/user/login" class="go-login">欢迎您，请登录</a>
+	                        <a href="user/register" class="go-register">免费注册</a>
+	                    </div>
+	                {% endif %}
+	      			<div class="user-info">
+	      				<a href="javascript:;"><span>个人中心</span></a>
+	      				<a href="/user/user-center-order/1"><span>我的订单</span></a>
+	      				<a href="/"><span>首页</span></a>
+	      			</div>
+	      		</div>
+	        </div>
+	    {% endblock header %}
+
+	    {% block logo %}
+	        <div class="user-header">
+	         	 <div class="user-logo">个人中心</div>
+	         	 <div class="cart"><a href="/cart/cart">我的购物车>></a></div>
+			</div>
+		{% endblock logo %}
+
+		{% block sum %}{% endblock sum %}
+
+		{% block content-body %}
+			<div class="center-info">
+				<div class="info-list">
+					<ul>
+						<li><a href="javascript:;" class="cur clearfix">个人中心</a> </li>
+						<li><a href="/user/user-info-site" class="clearfix">收货地址</a></li>
+						<li><a href="/user/user-center-order/1" class="clearfix">我的订单</a> </li>
+					</ul>
+				</div>
+
+				<div class="info-content">
+					<div class="avator-header">基本信息</div>
+					<div class="avator-msg">
+						<div class="">用户名：{{ user.username}}</div>
+	                    {% if address%}
+	                        <div class="">联系电话：{{ address.phone}}</div>
+	                        <div class="">详细地址：{{ address.address}}</div>
+	                    {% else %}
+	                        <div class="">联系电话：暂无联系电话</div>
+	                        <div class="">详细地址：暂无默认地址(亲，您可以到<a href="/user/user-info-site" class="r">收货地址</a>中去添加地址哦！)</div>
+	                    {% endif %}
+					</div>
+
+					<div class="his">浏览记录</div>			
+						<ul class="his-list">
+							{% csrf_token %}
+							{% if goods_daily%}
+								{% for good in goods_daily%}
+									<li>
+										<div class="gd-name"><a href="/goods/daily-detail/{{ good.id }}">{{ good.name }}</a></div>
+										<div class="gd-img"><a href="/goods/daily-detail/{{ good.id }}"></a></div>
+										<div class="gd-price">{{ good.price }} {{ good.unit }}</div>
+										<div class="add" sku_id='{{ good.id }}'></div>
+									</li>
+								{% endfor %}
+							{% else %}
+								无浏览记录
+							{% endif %}
+						</ul>
+				</div>
+			</div>
+		{% endblock content-body %}
+
+		{% block bottomfile %}
+			<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%} "></script>
+			<script type="text/javascript">
+				$(function(){
+
+					$('.add').click(function(){
+						var sku_id = $(this).attr('sku_id');
+
+						var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+
+						var count = 1;
+
+						parems = {'sku_id': sku_id, 'count': count, 'csrfmiddlewaretoken': csrf }
+
+						$.post('/cart/add', parems, function(data){
+
+							   if(data.ret == 5){
+							   	   alert(data.msg);
+							   }
+							   else{
+							   	  alert(data.ermsg);
+							   }
+						})
+					})
+
+					// var msg = $('.msg').html();
+					// if(msg){
+					// 	// alert(msg);
+					// 	window.location.href = 'user/user-center-info/1'
+						
+					// }
+							
+				})
+			</script>
+		{% endblock bottomfile %}

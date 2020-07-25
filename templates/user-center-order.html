@@ -1,0 +1,162 @@
+{% extends 'center.html' %}
+{% load static%}
+	
+	{% block link %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/user-center-order.css'%} ">
+		<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%}"></script>
+	{% endblock link %}
+
+	{% block title %}
+		<title>个人中心</title>
+	{% endblock title %}
+
+		{% block content-body %}
+			<div class="center-info">
+				<div class="info-list">
+					<ul>
+						<li class="li-cl"><a href="/user/user-center-info" class="clearfix">个人中心</a> </li>
+						<li class="li-cl"><a href="/user/user-info-site" class="clearfix">收货地址</a></li>
+						<li class="li-cl"><a href="javascript:;" class="cur clearfix">我的订单</a> </li>
+					</ul>
+				</div>
+
+				<div class="info-content">
+					{% for order in page_skus %}
+						{% csrf_token %}
+						<li class="order-list li-cl">
+							<div class="order-header">
+								<div class="number fl">{{ order }}</div>
+								<div class="order-time fl">{{ order.create_time }}</div>
+								<div class="order-st-h fl red">{{ order.order_status_name }}</div>
+							</div>
+							<div class="order-info fl">
+								<ul class="order-gd fl">
+										{% for order_sku in order.order_skus %}
+											{% if order_sku.sku %}
+											    <li class="order-ls li-cl">
+													<div class="gd-img fl"></div>
+													<div class="gd-name fl">{{ order_sku.sku.name }}</div>
+													<div class="gd-unit fl">{{ order_sku.sku.price }}    {{ order_sku.sku.unit }}</div>
+													<div class="gd-num fl">{{ order_sku.count }}</div>
+													<div class="gd-amount fl">{{ order_sku.amount }}元</div>
+												</li>
+											{% else %}
+												<li class="order-ls li-cl">
+													<div class="gd-img fl"></div>
+													<div class="gd-name fl">{{ order_sku.prev.name }}</div>
+													<div class="gd-unit fl">{{ order_sku.prev.price }}    {{ order_sku.prev.unit }}</div>
+													<div class="gd-num fl">{{ order_sku.count }}</div>
+													<div class="gd-amount fl">{{ order_sku.amount }}元</div>
+												</li>
+											{% endif %}
+										{% endfor %}
+								</ul>				
+							
+								<div class="finish_st fl red">{{ order.order_status_name }}</div>
+								<div class="order-act fl"><button class="but" order_id='{{ order }}' order_status_num='{{ order.status_num }}'  sku_id={{ order.order_id }}>{{ order.status_action }}</button></div>
+							</div>
+						</li>
+					{% endfor %}
+
+					<ul class="page-list">
+						{% if page_skus.has_previous %}
+							<li class="li-cl fl li-rh"><a href="{% url 'user:user-center-order' page_skus.previous_page_number %}" class="a-cl"><上一页</a> </li>
+						{% endif %}
+						{% for pindex in pages %}
+							{% if pindex == page_skus.number %}
+								<li class="li-cl fl li-rh"><a href="{% url 'user:user-center-order' pindex %}" class="a-cl gl">{{ pindex }}</a></li>
+							{% else %}
+								<li class="li-cl fl li-rh"><a href="{% url 'user:user-center-order' pindex %}" class="a-cl">{{ pindex }}</a></li>
+							{% endif%}
+						{% endfor %}
+						{% if page_skus.has_next %}
+							<li class="li-cl fl li-rh"><a href="{% url 'user:user-center-order' page_skus.next_page_number %}" class="a-li a-cl">下一页></a> </li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+			<div style="display: none;" class="msg">{{ content }}</div>
+		{% endblock content-body %}   
+		{% block bottomfile %}
+				<script type="text/javascript">
+					$(function(){
+
+							$('.order-gd').each(function(){
+								var li = $(this).find('.order-ls').length;
+								// alert(li)
+
+								height_li = 70 * parseInt(li);
+
+								$(this).css({'height': height_li + 'px'})
+
+								$(this).siblings('.finish_st').css({'height': height_li + 'px', 'line-height': height_li + 'px'})
+								$(this).siblings('.order-act').css({'height': height_li + 'px', 'line-height': height_li + 'px'})
+
+								height_list = height_li + parseInt(74);
+								$(this).parent('div').parent('.order-list').css({'height': height_list + 'px'})
+							})
+
+
+							$('.but').click(function(){
+
+								var status_num = $(this).attr('order_status_num')
+
+								var sku_id = $(this).attr('sku_id');
+
+								if(status_num == 1){
+									var order_id = $(this).attr('order_id');
+
+									var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+
+									parems = {'order_id': order_id, 'csrfmiddlewaretoken':csrf}
+
+									$.post('/order/pay', parems, function(data){
+
+
+											if(data.res == 2){
+												// window.open(data.pay_url)
+												window.location.href = data.pay_url
+											}
+
+											else{
+												alert(data.ermsg);
+											}
+									})
+								}
+
+								else if(status_num == 4){
+									alert(sku_id)
+
+
+									window.open('/order/comment/' + sku_id)
+								}
+
+								else{
+									// alert('未处理')
+								}
+								
+							})
+
+							
+							var msg = $('.msg').html();
+							if(msg == '支付成功'){
+								// alert(msg);
+								window.location.href = '/user/user-center-order/1'
+								var status = $('.but').attr('order_status_num');
+								if(status=='4'){
+									$('.order-act').text('去评价')
+								}
+
+							}
+							else{
+								if(msg){
+									alert(msg);
+								window.location.href = '/user/user-center-order/1'
+								}
+								
+							}
+										
+									
+					})
+				</script>
+		{% endblock bottomfile %}

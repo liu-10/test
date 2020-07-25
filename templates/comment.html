@@ -1,0 +1,68 @@
+{% extends 'center.html' %}
+{% load static %}
+
+	{% block link %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/comment.css'%} ">
+		<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%}"></script>
+	{% endblock link %}
+
+	{% block title %}
+		<title>评论商品</title>
+	{% endblock title %}
+
+		{% block content-body %}
+			<div class="center-info">
+				<div class="info-list">
+					<ul>
+						<li class="li-cl"><a href="/user/user-center-info" class="clearfix">个人中心</a> </li>
+						<li class="li-cl"><a href="/user/user-info-site" class="clearfix">收货地址</a></li>
+						<li class="li-cl"><a href="javascript:;" class="cur clearfix">订单评价</a> </li>
+					</ul>
+				</div>
+
+				<div class="info-content">
+					<form method="post">
+						{% csrf_token %}
+						<input type="hidden" name="order_id" value="{{ order_id }}">
+						{% for sku in skus %}
+						    <input type="hidden" name="total_count" value="{{ sku.order.total_count }}">
+						    <input type="hidden" name="tar", value="9527">
+							<li class="comment-content li-cl">
+								<div class="comment-good">
+									<div class="gd-img fl"></div>
+									{% if sku.sku.name %}
+										<div class="gd-name fl">{{ sku.sku.name }}</div>
+										<div class="gd-price fl">{{ sku.price }}元</div>
+										<div class="gd-count fl">{{ sku.count }}</div>
+										<div class="gd-amount fl">{{ sku.amount}}元</div>
+									{% else %}
+										<div class="gd-name fl">{{ sku.prev.name }}</div>
+										<div class="gd-price fl">{{ sku.price }}元</div>
+										<div class="gd-count fl">{{ sku.count }}</div>
+										<div class="gd-amount fl">{{ sku.amount}}元</div>
+									{% endif %}
+								</div>
+								<div class="comment-text">
+									{% if sku.sku.id %}
+										<input type="hidden" name="sku_{{ forloop.counter }}" value="{{ sku.sku.id }}">
+									{% else %}
+										<input type="hidden" name="sku_{{ forloop.counter }}" value="{{ sku.prev.id }}">
+									{% endif %}
+									<div class="fl tp">评论内容：</div>
+									<div class="fl">
+										<textarea class="input-text" name='comment_{{ forloop.counter }}'></textarea>
+									</div>
+								</div>
+							</li>
+						{% endfor %}
+						<div><input type="submit" name="" class="btn"></div>
+					</form>
+				</div>
+
+
+			</div>
+			<div  class="msg">{{ content }}</div>
+		{% endblock content-body %}   
+		{% block bottomfile %}	
+		{% endblock bottomfile %}
+

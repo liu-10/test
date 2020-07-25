@@ -1,0 +1,81 @@
+{% extends 'static_base.html' %}
+{% load static %}
+
+	{% block link %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%} ">
+		<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%}"></script>
+		<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+	{% endblock link %}
+
+	{% block title %}
+	<title>商品列表</title>
+	{% endblock title %}
+
+		
+		{% block body-content %}
+          <div class="content-headerline">
+			  <div class="row">
+	          	 <div class="dropdown">
+	          	 	<div class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+	          	 		全部商品分类
+	          	 		<span class="caret"></span>       <!-- 这是向下的小箭头 -->
+	          	 	</div>
+	          	 	<ul class="dropdown-menu width:200px">
+						<li><a href="#" class="a-fl">生活必备</a><span> <a href="#" class="sp-a">></a> </span></li>
+						<li><a href="#" class="a-fl">救急药品</a><span> <a href="#" class="sp-a">></a> </span></li>
+						<li><a href="#" class="a-fl">诱人美食</a><span> <a href="#" class="sp-a">></a> </span></li>
+						<li><a href="#" class="a-fl">精品书籍</a><span> <a href="#" class="sp-a">></a> </span></li>
+					</ul>
+				 </div>
+			  </div>
+          </div>
+
+          <div class="content-body">
+             <div class="new">
+          	 	<div class="new-header">新推荐</div>
+          	 	<ul class="new-list">
+          	 		<li class="ls">
+          	 			<div class="new-name">苹果</div>
+          	 			<div class="new-img"></div>
+          	 		</li>
+          	 		<li class="ls">
+          	 			<div class="new-name">苹果</div>
+          	 			<div class="new-img"></div>
+          	 		</li>
+          	 	</ul>
+          	 </div>
+          	 <div class="content-list">
+          	 	<div class="list-header">
+          	 		<div class="fld cur">默认</div>
+          	 		<div class="fld">人气</div>
+          	 		<div class="fld">价格</div>
+          	 	</div>
+          	 	<ul class="list-content new-list">
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 		<li class="list-li ls">
+          	 			<div class="list-name">苹果</div>
+          	 			<div class="list-img"></div>
+          	 			<div class="list-unit">12元/斤</div>
+          	 			<div class="add"></div>
+          	 		</li>
+          	 	</ul>
+          	 	<ul class="list-page">
+          	 		<li class="ls fl"><a href="#"><上一页</a> </li>
+          	 		<li class="ls fl">1</li>
+          	 		<li class="ls fl">2</li>
+          	 		<li class="ls fl">3</li>
+          	 		<li class="ls fl"><a href="#">下一页></a> </li>
+          	 	</ul>
+          	 </div>
+          		
+          </div>
+
+          {% endblock body-content %}
+
+         

@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+{% load static %}
+	
+	{% block link %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cart.css'%} ">
+    {% endblock link %}
+
+    {% block title %}
+	<title>购物车</title>
+	{% endblock title %}
+
+	{% block bottomfile %}
+    <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js'%} "></script>
+    <script type="text/javascript">
+        $(function(){
+
+            update_page_info();
+
+            //全选
+            $('.sum_list').find(':checkbox').change(function(){
+                //获取当前全选的状态
+                is_checked = $(this).prop('checked')
+
+                $('.goods_list').find(':checkbox').each(function(){
+
+                        $(this).prop('checked',is_checked)
+                })
+
+                update_error_info();
+                update_page_info();
+
+            })
+
+            
+            //不全选
+            $('.goods_list').find(':checkbox').change(function(){
+
+                //全选的长度
+                var total_num = $('.goods_list li').length;
+
+                //选中的长度
+                var num = $('.goods_list').find(':checked').parents('li').length;
+
+                if(num < total_num){
+                    $('.sum').find(':checkbox').prop('checked',false);
+                    update_page_info();
+                }
+                else{
+                    $('.sum').find(':checkbox').prop('checked',true);
+                    update_error_info();
+                    update_page_info();
+                }
+                 
+            })
+
+            $('.add').click(function(){
+
+                var sku_id = $(this).parents('li').find('.ano1').attr('sku_id');
+
+                var count =  $(this).parents('li').find('.num').val();
+
+                count = parseInt(count) + 1;
+
+                var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+
+                parems = {'sku_id': sku_id, 'count': count, 'csrfmiddlewaretoken': csrf}
+
+                $.post('/cart/update', parems, function(data){
+
+                    if(data.res == 4){
+                        alert(data.msg);
+                    }
+                    else{
+                        alert(data.ermsg);
+                        // window.location.href = '/cart/cart'
+                       
+                        update_error_info();
+                        update_page_info();
+
+                    }
+                })
+
+                var num = $(this).prev().val();
+                // alert(num);
+                num ++;
+                $(this).prev().val(num);
+
+                update_page_info();
+            })
+
+            $('.rem').click(function(){
+
+                var sku_id = $(this).parents('li').find('.ano1').attr('sku_id');
+
+                var count =  $(this).parents('li').find('.num').val();
+
+                count = parseInt(count) - 1;
+                if(count < 1){
+                    count = 1
+                }
+
+                var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+
+                parems = {'sku_id': sku_id, 'count': count, 'csrfmiddlewaretoken': csrf}
+
+                $.post('/cart/update', parems, function(data){
+
+                    if(data.res == 4){
+                        alert(data.msg);
+                    }
+                    else{
+                        alert(data.ermsg);
+                        // window.location.href = '/cart/cart'
+                        update_error_info();
+                        update_page_info();
+                    }
+                })
+
+                var num = $(this).next().val();
+                // alert(num);
+                num --;
+                if(num < 1){
+                    num = 1;
+                    $(this).next().val(num);
+                }
+                else{
+                    $(this).next().val(num);
+                }
+
+                 update_page_info();
+               
+            })
+
+            function update_page_info(){
+                    var total_num = 0
+                    var total_price = 0
+                    $('.goods_list').find(':checked').parents('li').each(function(){
+                        count = $(this).find('.num').val();
+                        // alert(count);
+                        u_price = $(this).find('.ano4 em').html();
+                        // alert(u_price);
+                        $(this).find('.ano6 em').html(parseFloat(count * u_price).toFixed(2)); 
+                        t_p = $(this).find('.ano6 em').html();
+
+                        //计算总数，总价
+                        total_num += parseInt(count);
+                        total_price += parseFloat(t_p);
+                    })
+                    $('.count1 span').html(total_price);
+                    $('.count2 span').html(total_num);
+
+                    var has_checked = $('.num').parents('li').find(':checked').length;
+                   
+                    if(has_checked == 0){
+                        $('.to_se').prop('checked', false)
+                    }
+            }
+
+            function update_error_info(){
+
+                    $('.goods_list').find(':checked').parents('li').each(function(){
+                        count = $(this).find('.num').val();
+                        // alert(count);
+
+                        stock = $(this).find('.num').attr('sku_stock');
+
+                        // alert(stock);
+
+                        if(count <=  stock){
+                            count = count
+                            alert('当前数量是' + count);
+                            alert('当前库存是' + stock);
+                        }
+                        else{
+                            count = stock
+                            alert('当前数量是' + count);
+                            alert('当前库存是' + stock);
+                        }
+
+                       $(this).find('.num').val(count);
+                    })
+            }
+
+            $('.ano').click(function(){
+                update_page_info();
+            })
+
+            $('.num').blur(function(){
+
+                var count = $(this).val();
+
+                if(count < 0 || isNaN(count)){
+                    alert('输入错误');
+                }
+                else{
+                    var sku_id = $(this).parents('li').find('.ano1').attr('sku_id');
+
+                    var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+
+                    parems = {'sku_id': sku_id, 'count': count, 'csrfmiddlewaretoken': csrf}
+
+                    $.post('/cart/update', parems, function(data){
+
+                        if(data.res == 4){
+                            alert(data.msg);
+                        }
+                        else{
+                            alert(data.ermsg);
+                            // window.location.href = '/cart/cart'
+                            update_error_info();
+                            update_page_info();
+                        }
+                    })
+                    update_page_info();
+                }
+            })
+
+            $('.ano7').click(function(){
+                var sku_id = $(this).parents('li').find('.ano1').attr('sku_id');
+
+                var csrf  = $('input[name="csrfmiddlewaretoken"]').val();
+
+                parems = {'sku_id': sku_id, 'csrfmiddlewaretoken': csrf}
+
+                $.post('/cart/delete', parems, function(data){
+
+                        if(data.res == 3){
+                            alert(data.msg);
+                            delete_info();
+                            window.location.href = '/cart/cart'
+                        }
+                        else{
+                            alert(data.ermsg);
+                        }
+                })
+
+                function delete_info(){
+                    $(this).parents('li').remove();
+                }
+            })
+        })
+    </script>
+    {% endblock bottomfile %}
+ 
+      {% block logo-search %}
+		<div class="logo">
+				LOGO
+				<span>|</span>
+				<span>购物车</span>
+			</div>
+	    <div class="search-text">
+            <form method="get" action="/search">
+          		<input type="text" name="q" placeholder="搜索商品" class="se-text">
+          		<input type="submit" name="" value="搜索" class="se-btn">
+            </form>    
+	    </div>
+	  {% endblock logo-search %}
+
+      {% block sum%}{% endblock sum%}
+
+	  {% block body-content %}
+	    <div class="content">
+	    	<div class="count">全部商品共 <span>{{ counts }}</span> 件</div>
+            <div class="goods">
+                <span>商品名称</span>
+                <span>商品单位</span>
+                <span>商品价格</span>
+                <span>数量</span>
+                <span>小计</span>
+                <span>操作</span>
+            </div>
+            <div class="goods_list"> 
+                <form method="post" action="/order/place">
+                    {% csrf_token %}
+                    <ul>
+                        {% if counts %}
+                            {% for sku in skus %}
+                                <li>
+                                    <!-- 选中了才会被提交 -->
+                                    <span class="ano"><input type="checkbox" name="sku_ids" value="{{ sku.id }}" checked class="inp"></span>
+                                    <div class="ano1" sku_id='{{ sku.id }}'>图片</div>
+                                    <span class="ano2">{{ sku.name }}</span>
+                                    <span class="ano3">{{ sku.unit }}</span>
+                                    <span class="ano4"><em>{{ sku.price }}</em>元</span>
+                                    <span class="ano5">
+                                        <div class="num-text">
+                                           <div class="rem">-</div>
+                                           <input type="text" name="" value="{{ sku.count }}" class="num" sku_stock='{{ sku.stock }}'>
+                                           <div class="add">+</div>
+                                        </div>
+                                    </span>
+                                    <span class="ano6"><em>{{ sku.total_price }}</em>元</span>
+                                    <span><div class="ano7">删除</div></span>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <div class="none_cart">购物车无记录</div>
+                        {% endif %}
+                    </ul>
+                    <div class="sum">
+                        <div class="sum_list">
+                            <input type="checkbox" name="" checked class="to_se">
+                            <span>全选</span>
+                            <div class="sum1">
+                                <div class="count1">合计(不含运费):￥<span>142.60</span>元</div>
+                                <div class="count2">共计 <span>2</span> 件商品</div>
+                            </div>
+                        </div>
+                        <input type="submit" name="" class="btn">
+                    </div>
+                </form>    
+            </div>
+	    </div>
+
+	    {% endblock body-content %}
+	    {% block copyright %}{% endblock copyright %}
